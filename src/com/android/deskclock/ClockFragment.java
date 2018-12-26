@@ -80,6 +80,7 @@ public final class ClockFragment extends DeskClockFragment {
     private SelectedCitiesAdapter mCityAdapter;
     private RecyclerView mCityList;
     private String mDateFormat;
+    private String mDateFormatAlarm;
     private String mDateFormatForAccessibility;
 
     /**
@@ -103,11 +104,12 @@ public final class ClockFragment extends DeskClockFragment {
 
         final View fragmentView = inflater.inflate(R.layout.clock_fragment, container, false);
 
-        mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
+        mDateFormat = getString(R.string.full_wday_month_day_no_year);
+        mDateFormatAlarm = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
         mCityAdapter = new SelectedCitiesAdapter(getActivity(), mDateFormat,
-                mDateFormatForAccessibility);
+                mDateFormatAlarm, mDateFormatForAccessibility);
 
         mCityList = (RecyclerView) fragmentView.findViewById(R.id.cities);
         mCityList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -129,7 +131,7 @@ public final class ClockFragment extends DeskClockFragment {
             mDigitalClock = (TextClock) mClockFrame.findViewById(R.id.digital_clock);
             mAnalogClock = (AnalogClock) mClockFrame.findViewById(R.id.analog_clock);
             Utils.setClockIconTypeface(mClockFrame);
-            Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
+            Utils.updateDate(getActivity(), mDateFormat, mDateFormatAlarm, mDateFormatForAccessibility, mClockFrame);
             Utils.setClockStyle(mDigitalClock, mAnalogClock);
             Utils.setClockSecondsEnabled(mDigitalClock, mAnalogClock);
         }
@@ -146,7 +148,8 @@ public final class ClockFragment extends DeskClockFragment {
 
         final Activity activity = getActivity();
 
-        mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
+        mDateFormat = getString(R.string.full_wday_month_day_no_year);
+        mDateFormatAlarm = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
         // Watch for system events that effect clock time or format.
@@ -348,13 +351,15 @@ public final class ClockFragment extends DeskClockFragment {
         private final Context mContext;
         private final boolean mIsPortrait;
         private final boolean mShowHomeClock;
-        private final String mDateFormat;
-        private final String mDateFormatForAccessibility;
+        private static String mDateFormat;
+        private static String mDateFormatAlarm;
+        private static String mDateFormatForAccessibility;
 
         private SelectedCitiesAdapter(Context context, String dateFormat,
-                String dateFormatForAccessibility) {
+                String dateFormatAlarm, String dateFormatForAccessibility) {
             mContext = context;
             mDateFormat = dateFormat;
+            mDateFormatAlarm = dateFormatAlarm;
             mDateFormatForAccessibility = dateFormatForAccessibility;
             mInflater = LayoutInflater.from(context);
             mIsPortrait = Utils.isPortrait(context);
@@ -541,7 +546,7 @@ public final class ClockFragment extends DeskClockFragment {
                     String dateFormatForAccessibility, boolean showHairline) {
                 Utils.refreshAlarm(context, itemView);
 
-                Utils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
+                Utils.updateDate(context, mDateFormat, mDateFormatAlarm, mDateFormatForAccessibility, itemView);
                 Utils.setClockStyle(mDigitalClock, mAnalogClock);
                 mHairline.setVisibility(showHairline ? VISIBLE : GONE);
 

@@ -43,6 +43,7 @@ public final class Screensaver extends DreamService {
     private MoveScreensaverRunnable mPositionUpdater;
 
     private String mDateFormat;
+    private String mDateFormatAlarm;
     private String mDateFormatForAccessibility;
 
     private View mContentView;
@@ -63,7 +64,7 @@ public final class Screensaver extends DreamService {
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
         public void run() {
-            Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+            Utils.updateDate(Screensaver.this, mDateFormat, mDateFormatAlarm, mDateFormatForAccessibility, mContentView);
         }
     };
 
@@ -84,7 +85,8 @@ public final class Screensaver extends DreamService {
         setTheme(R.style.Theme_DeskClock);
         super.onCreate();
 
-        mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
+        mDateFormat = getString(R.string.full_wday_month_day_no_year);
+        mDateFormatAlarm = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
     }
 
@@ -129,7 +131,7 @@ public final class Screensaver extends DreamService {
             getContentResolver().registerContentObserver(uri, false, mSettingsContentObserver);
         }
 
-        Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+        Utils.updateDate(this, mDateFormat, mDateFormatAlarm, mDateFormatForAccessibility, mContentView);
         Utils.refreshAlarm(this, mContentView);
 
         startPositionUpdater();

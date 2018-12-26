@@ -453,7 +453,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      */
     private static String getDateFormat(Context context) {
         final Locale locale = Locale.getDefault();
-        final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
+        final String nextAlarmTime = Utils.getNextAlarm(context);
+        final String skeleton;
+        if (TextUtils.isEmpty(nextAlarmTime)) {
+            skeleton = context.getString(R.string.full_wday_month_day_no_year);
+        } else {
+            skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
+        }
         return DateFormat.getBestDateTimePattern(locale, skeleton);
     }
 
@@ -495,7 +501,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         private int getClockFontSizePx() { return mClockFontSizePx; }
         private void setClockFontSizePx(int clockFontSizePx) {
             mClockFontSizePx = clockFontSizePx;
-            mFontSizePx = max(1, round(clockFontSizePx / 7.5f));
+            mFontSizePx = max(1, round(clockFontSizePx / 5.5f));
             mIconFontSizePx = (int) (mFontSizePx * 1.4f);
             mIconPaddingPx = mFontSizePx / 3;
         }

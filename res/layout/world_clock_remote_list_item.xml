@@ -58,13 +58,13 @@
                     <TextView
                         android:id="@+id/city_name_left"
                         style="@style/widget_label"
+                        android:fontFamily="sans-serif"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:ellipsize="end"
                         android:includeFontPadding="false"
                         android:singleLine="true"
-                        android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="@dimen/city_widget_name_font_size" />
 
@@ -73,6 +73,7 @@
                 <TextView
                     android:id="@+id/city_day_left"
                     style="@style/widget_label"
+                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/style_label_space"
@@ -81,7 +82,6 @@
                     android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:singleLine="true"
-                    android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/city_widget_name_font_size" />
 
@@ -120,13 +120,13 @@
                     <TextView
                         android:id="@+id/city_name_right"
                         style="@style/widget_label"
+                        android:fontFamily="sans-serif"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:ellipsize="end"
                         android:includeFontPadding="false"
                         android:singleLine="true"
-                        android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="@dimen/city_widget_name_font_size" />
 
@@ -135,6 +135,7 @@
                 <TextView
                     android:id="@+id/city_day_right"
                     style="@style/widget_label"
+                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/style_label_space"
@@ -143,7 +144,6 @@
                     android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:singleLine="true"
-                    android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/city_widget_name_font_size" />
 

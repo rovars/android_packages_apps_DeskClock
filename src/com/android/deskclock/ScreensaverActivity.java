@@ -87,11 +87,12 @@ public class ScreensaverActivity extends BaseActivity {
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
         public void run() {
-            Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+            Utils.updateDate(ScreensaverActivity.this, mDateFormat, mDateFormatAlarm, mDateFormatForAccessibility, mContentView);
         }
     };
 
     private String mDateFormat;
+    private String mDateFormatAlarm;
     private String mDateFormatForAccessibility;
 
     private View mContentView;
@@ -103,7 +104,8 @@ public class ScreensaverActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
+        mDateFormat = getString(R.string.full_wday_month_day_no_year);
+        mDateFormatAlarm = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
         setContentView(R.layout.desk_clock_saver);
@@ -160,7 +162,7 @@ public class ScreensaverActivity extends BaseActivity {
     public void onResume() {
         super.onResume();
 
-        Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+        Utils.updateDate(ScreensaverActivity.this, mDateFormat, mDateFormatAlarm, mDateFormatForAccessibility, mContentView);
         Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
 
         startPositionUpdater();

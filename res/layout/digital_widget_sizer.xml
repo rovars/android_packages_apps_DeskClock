@@ -46,7 +46,6 @@
             android:includeFontPadding="false"
             android:ellipsize="none"
             android:singleLine="true"
-            android:textAllCaps="true"
             android:textColor="@color/white" />
 
         <!-- This view is drawn to a Bitmap and sent to the widget as an icon. -->
@@ -71,7 +70,6 @@
             android:includeFontPadding="false"
             android:ellipsize="none"
             android:singleLine="true"
-            android:textAllCaps="true"
             android:textColor="@color/white" />
 
     </LinearLayout>

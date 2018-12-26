@@ -360,6 +360,11 @@ public class Utils {
             nextAlarmView.setVisibility(View.GONE);
             nextAlarmIconView.setVisibility(View.GONE);
         }
+
+        String mDateFormat = context.getString(R.string.full_wday_month_day_no_year);
+        String mDateFormatAlarm = context.getString(R.string.abbrev_wday_month_day_no_year);
+        String mDateFormatForAccessibility = context.getString(R.string.full_wday_month_day_no_year);
+        Utils.updateDate(context, mDateFormat, mDateFormatAlarm, mDateFormatForAccessibility, clock);
     }
 
     public static void setClockIconTypeface(View clock) {
@@ -370,14 +375,21 @@ public class Utils {
     /**
      * Clock views can call this to refresh their date.
      **/
-    public static void updateDate(String dateSkeleton, String descriptionSkeleton, View clock) {
+    public static void updateDate(Context context, String dateSkeleton, String dateSkeletonAlarm, String descriptionSkeleton, View clock) {
         final TextView dateDisplay = (TextView) clock.findViewById(R.id.date);
         if (dateDisplay == null) {
             return;
         }
 
         final Locale l = Locale.getDefault();
-        final String datePattern = DateFormat.getBestDateTimePattern(l, dateSkeleton);
+        final String datePattern;
+        final String alarm = getNextAlarm(context);
+        if (!TextUtils.isEmpty(alarm)) {
+            datePattern = DateFormat.getBestDateTimePattern(l, dateSkeletonAlarm);
+        } else {
+            datePattern = DateFormat.getBestDateTimePattern(l, dateSkeleton);
+        }
+
         final String descriptionPattern = DateFormat.getBestDateTimePattern(l, descriptionSkeleton);
 
         final Date now = new Date();
