@@ -24,10 +24,4 @@
         android:key="screensaver_clock_style"
         android:title="@string/clock_style" />
 
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="screensaver_night_mode"
-        android:summary="@string/night_mode_summary"
-        android:title="@string/night_mode_title" />
-
 </PreferenceScreen>
